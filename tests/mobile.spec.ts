@@ -38,12 +38,18 @@ async function expectCoverToFit(page: Page) {
     const caption = await page.locator('.cover-caption').boundingBox();
     const title = await page.locator('.cover-heading').boundingBox();
     expect(Math.abs(photo!.x + photo!.width / 2 - viewport.width / 2)).toBeLessThanOrEqual(1);
-    expect(
+    const envelope = await page.locator('.envelope-front').boundingBox();
+    expect(title!.y, 'Typography stays below the faces').toBeGreaterThanOrEqual(
+      photo!.y + photo!.height * 0.4,
+    );
+    expect(title!.y + title!.height, 'The envelope does not hide the title').toBeLessThanOrEqual(
+      envelope!.y + 8,
+    );
+    expect(caption!.y, 'Names and date are printed on the envelope').toBeGreaterThan(envelope!.y);
+    expect(caption!.y + caption!.height).toBeLessThan(envelope!.y + envelope!.height);
+    const seal = await page.getByRole('button', { name: 'Розкрити конверт' }).boundingBox();
+    expect(seal!.y + seal!.height, 'The seal stays clear of the names and date').toBeLessThan(
       caption!.y,
-      'Names must remain below the portrait, clear of the couple',
-    ).toBeGreaterThanOrEqual(photo!.y + photo!.height + 8);
-    expect(title!.y, 'Cover typography must stay clear of the couple').toBeGreaterThanOrEqual(
-      photo!.y + photo!.height + 8,
     );
   }
 }

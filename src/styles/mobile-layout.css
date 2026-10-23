@@ -1,7 +1,4 @@
 /* Phone composition: shared center axis, readable copy, and equal image gutters. */
-.cover-mobile-date {
-  display: none;
-}
 @media (max-width: 700px) {
   .section {
     padding-block: 64px;
@@ -355,81 +352,5 @@
   }
   .closing-bottom > a {
     order: 3;
-  }
-}
-
-@media (max-width: 700px) and (orientation: portrait) {
-  .magazine-cover {
-    display: grid;
-    grid-template-rows: minmax(0, 1fr) auto auto;
-    row-gap: 10px;
-  }
-  .cover-image {
-    position: relative;
-    inset: auto;
-    left: auto;
-    right: auto;
-    grid-row: 1;
-    justify-self: center;
-    height: 100%;
-    max-width: 100%;
-    transform: none;
-  }
-  .cover-heading {
-    position: static;
-    grid-row: 2;
-    text-align: center;
-  }
-  .cover-heading h1 {
-    display: flex;
-    justify-content: center;
-    align-items: baseline;
-    gap: 6px;
-    font-size: clamp(24px, 7.2vw, 32px);
-    white-space: nowrap;
-  }
-  .cover-heading h1 > br {
-    display: none;
-  }
-  .cover-heading h1 > .cover-first,
-  .cover-heading h1 > .cover-last {
-    margin-top: 0;
-    padding: 2px 5px 5px;
-  }
-  .cover-heading > .micro {
-    padding-inline: 6px;
-    margin-inline: auto;
-    margin-bottom: 8px;
-  }
-  .cover-edition {
-    display: none;
-  }
-  .cover-caption {
-    position: static;
-    grid-row: 3;
-    text-align: center;
-    font-size: 9px;
-    line-height: 1.4;
-    color: var(--ink);
-  }
-  .cover-mobile-date {
-    display: block;
-    font-size: 11px;
-    margin-top: 4px;
-    letter-spacing: 0.04em;
-    text-transform: none;
-  }
-  .cover-date {
-    display: none;
-  }
-  .cover-date span {
-    margin-top: 8px;
-    font-size: 11px;
-  }
-}
-
-@media (max-width: 700px) and (orientation: portrait) {
-  .invitation-overlay[data-compact] .cover-heading > .micro {
-    display: none;
   }
 }

@@ -5,6 +5,8 @@ import { ArrowUpRight } from 'lucide-react';
 import { weddingConfig as c } from '../config/weddingConfig';
 import type { Guest } from '../data/guests';
 import { useMotionPreference } from '../hooks/useMotionPreference';
+import { Chandelier, PearlStrand } from './Ornament';
+import '../styles/invitation.css';
 export function Invitation({ guest, onClose }: { guest: Guest; onClose: () => void }) {
   const root = useRef<HTMLDialogElement>(null);
   const timeline = useRef<gsap.core.Timeline | null>(null);
@@ -58,14 +60,18 @@ export function Invitation({ guest, onClose }: { guest: Guest; onClose: () => vo
       }
       timeline.current = gsap
         .timeline({ defaults: { ease: 'power3.inOut' }, onComplete: onClose })
-        .to('.cover-type', { yPercent: -18, opacity: 0, duration: 0.5, stagger: 0.06 })
+        .to('.envelope-seal', { scale: 0.8, opacity: 0, duration: 0.22 })
+        .to('.envelope-flap', { rotationX: 180, duration: 0.6 }, 0.12)
+        .set('.envelope-flap', { zIndex: 0 }, 0.42)
+        .to('.invitation-card', { yPercent: -12, rotation: -2, duration: 0.75 }, 0.44)
+        .to('.envelope-body', { yPercent: 50, opacity: 0, duration: 0.7 }, 0.65)
         .to(
-          '.cover-panel',
-          { xPercent: -105, rotation: -4, duration: 1.1, transformOrigin: 'left bottom' },
-          0.2,
+          '.invitation-bottom, .invitation-top, .cover-decoration',
+          { opacity: 0, duration: 0.3 },
+          0.9,
         )
-        .to('.cover-image', { clipPath: 'inset(0 0 100% 0)', duration: 1 }, 0.35)
-        .to(root.current, { opacity: 0, duration: 0.35 }, 1.05);
+        .to('.invitation-card', { yPercent: -16, scale: 1.035, rotation: 0, duration: 0.5 }, 1.2)
+        .to(root.current, { opacity: 0, duration: 0.4 }, 1.65);
     })();
   return (
     <dialog
@@ -73,6 +79,7 @@ export function Invitation({ guest, onClose }: { guest: Guest; onClose: () => vo
       ref={root}
       tabIndex={-1}
       aria-labelledby="invitation-title"
+      data-opening={opening || undefined}
       onCancel={(e) => {
         e.preventDefault();
         onClose();
@@ -80,50 +87,60 @@ export function Invitation({ guest, onClose }: { guest: Guest; onClose: () => vo
     >
       <div className="cover-panel" />
       <div className="invitation-top">
-        <span className="micro">Особливий випуск · 2027</span>
+        <span className="invitation-personal">Особисто для вас</span>
         <button className="text-link" onClick={onClose}>
           Пропустити <ArrowUpRight size={15} />
         </button>
       </div>
-      <div className="magazine-cover">
-        <div className="cover-image">
-          <img
-            src={c.photos.hero}
-            alt={c.photos.heroAlt}
-            width="736"
-            height="903"
-            fetchPriority="high"
-          />
-          <p className="cover-date cover-type">
-            {c.shortDate.split('.')[0]}
-            <br />
-            <span>
-              {c.shortDate
-                .split('.')
-                .slice(1)
-                .map((value, index) => (index === 1 ? value.slice(-2) : value))
-                .join(' · ')}
-            </span>
-          </p>
+      <div className="invitation-stage">
+        <Chandelier className="cover-decoration cover-chandelier" />
+        <PearlStrand className="cover-decoration cover-pearls" />
+        <div className="envelope-scene">
+          <div className="envelope-body envelope-back" aria-hidden="true" />
+          <div className="envelope-body envelope-flap" aria-hidden="true" />
+          <div className="invitation-card">
+            <div className="cover-image">
+              <img
+                src={c.photos.hero}
+                alt={c.photos.heroAlt}
+                width="736"
+                height="903"
+                fetchPriority="high"
+              />
+            </div>
+            <div className="cover-heading">
+              <h1 id="invitation-title">
+                <span className="cover-first">Це ми.</span>
+                <span className="cover-last">Назавжди.</span>
+              </h1>
+            </div>
+          </div>
+          <div className="envelope-body envelope-front" aria-hidden="true" />
+          <svg
+            className="envelope-body envelope-seams"
+            viewBox="0 0 480 200"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path d="M2 2 240 98 478 2M2 198 175 105M478 198 305 105" />
+          </svg>
+          <div className="envelope-body envelope-inscription">
+            <button
+              className="envelope-seal"
+              type="button"
+              onClick={open}
+              disabled={opening}
+              aria-label="Розкрити конверт"
+            >
+              {c.couple.initials}
+            </button>
+            <p className="cover-caption">
+              {c.couple.together}
+              <span>{c.dateLabel}</span>
+            </p>
+          </div>
         </div>
-        <div className="cover-heading cover-type">
-          <span className="micro">{guest.cover}</span>
-          <h1 id="invitation-title">
-            <span className="cover-first">Це ми.</span>
-            <br />
-            <span className="cover-last">Назавжди.</span>
-          </h1>
-        </div>
-        <p className="cover-edition cover-type">
-          ОДИН ДЕНЬ.
-          <br />
-          ЦІЛЕ ЖИТТЯ.
-        </p>
-
-        <span className="cover-caption micro">
-          <span>{c.couple.together} · Київ</span>
-          <span className="cover-mobile-date">{c.dateLabel}</span>
-        </span>
+        <p className="invitation-recipient">{guest.cover}</p>
       </div>
       <div className="invitation-bottom">
         <button className="button" onClick={open} disabled={opening}>

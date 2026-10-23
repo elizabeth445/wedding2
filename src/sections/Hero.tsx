@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ArrowDown, ArrowUpRight, Pause, Play } from 'lucide-react';
 import { weddingConfig as c } from '../config/weddingConfig';
-import { EditorialFlourish, SectionLabel } from '../components/Ornament';
+import { PearlStrand, SectionLabel } from '../components/Ornament';
 import type { Guest } from '../data/guests';
 import { ChromeBackground } from '../components/ChromeBackground';
 import { useMotionPreference } from '../hooks/useMotionPreference';
@@ -107,7 +107,7 @@ export function Letter({ guest }: { guest: Guest }) {
             {c.couple.together}
           </p>
         </div>
-        <EditorialFlourish className="letter-flourish" />
+        <PearlStrand className="letter-flourish" />
       </div>
     </section>
   );

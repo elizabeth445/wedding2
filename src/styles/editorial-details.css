@@ -43,23 +43,15 @@
   background: var(--ink);
   color: var(--paper);
 }
-.editorial-flourish {
-  stroke: currentColor;
-  stroke-width: 1.1;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-.flourish-fill {
-  fill: currentColor;
-  fill-opacity: 0.08;
-  stroke: none;
+.pearl-strand {
+  overflow: visible;
 }
 .letter-flourish {
-  width: clamp(88px, 9vw, 124px);
+  width: 64px;
   height: auto;
-  align-self: end;
+  align-self: center;
   justify-self: end;
-  color: var(--muted);
+  transform: rotate(-15deg);
 }
 .letter .signature::before {
   content: '';
@@ -97,10 +89,10 @@
   }
   .letter-flourish {
     display: block;
-    width: 106px;
+    width: 48px;
     grid-row: 1;
     justify-self: center;
-    margin-bottom: -12px;
+    margin-bottom: 8px;
   }
   .letter .signature::before {
     margin-inline: auto;
@@ -145,10 +137,10 @@
   height: auto;
   color: var(--accent);
   justify-self: center;
-  transform: rotate(-65deg);
+  transform: rotate(-12deg);
 }
 .rsvp-margin-art:last-child {
-  transform: rotate(115deg);
+  transform: rotate(12deg) scaleX(-1);
 }
 .rsvp-panel {
   background: var(--paper);

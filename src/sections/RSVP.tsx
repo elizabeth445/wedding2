@@ -1,7 +1,7 @@
 import { useRef, useState, type FormEvent } from 'react';
 import { ArrowUpRight, Check, Pencil } from 'lucide-react';
 import { weddingConfig as c } from '../config/weddingConfig';
-import { EditorialFlourish, SectionLabel } from '../components/Ornament';
+import { PearlStrand, SectionLabel } from '../components/Ornament';
 import type { Guest } from '../data/guests';
 export type Reply = { version: 1; name: string; attendance: 'yes' | 'no'; message: string };
 function readReply(key: string): Reply | null {
@@ -70,12 +70,12 @@ export function RSVP({ guest }: { guest: Guest }) {
         <div className="rsvp-intro">
           <span className="micro">Ваша відповідь — частина нашої історії</span>
           <div className="rsvp-title-art">
-            <EditorialFlourish className="rsvp-margin-art" />
+            <PearlStrand className="rsvp-margin-art" />
             <h2 id="rsvp-title">
               Ви з<br />
               <em>нами?</em>
             </h2>
-            <EditorialFlourish className="rsvp-margin-art" />
+            <PearlStrand className="rsvp-margin-art" />
           </div>
           <p>
             Дуже хочемо розділити цей день із вами. Залиште відповідь до <span>{c.deadline}.</span>

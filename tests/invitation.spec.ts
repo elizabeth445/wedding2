@@ -13,6 +13,22 @@ async function replay(page: Page) {
   await page.locator('header').getByRole('button', { name: 'Обкладинка', exact: true }).click();
 }
 
+test('печать конверта открывает приглашение и допускает выход во время анимации', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Розкрити конверт' }).click();
+  await expect(page.getByRole('button', { name: 'Відкрити запрошення' })).toBeDisabled();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  await expect(page.locator('#hero-title')).toBeFocused();
+  await replay(page);
+  await page.getByRole('button', { name: 'Розкрити конверт' }).click();
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  await expect(page.locator('#hero-title')).toBeFocused();
+});
+
 test('обложка открывается, повторяется и закрывается с корректным фокусом', async ({ page }) => {
   await page.goto('/');
   await expect(page.getByRole('dialog')).toBeVisible();
