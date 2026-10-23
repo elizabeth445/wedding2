@@ -1,0 +1,435 @@
+/* Phone composition: shared center axis, readable copy, and equal image gutters. */
+.cover-mobile-date {
+  display: none;
+}
+@media (max-width: 700px) {
+  .section {
+    padding-block: 64px;
+  }
+  .section-label {
+    justify-content: center;
+    margin-bottom: 32px;
+    font-size: 10px;
+    text-align: center;
+  }
+  .section-label > span:first-child {
+    display: none;
+  }
+  .main-nav > a,
+  .main-nav > .replay-link {
+    text-align: center;
+    justify-content: center;
+  }
+  .main-nav .nav-rsvp {
+    justify-content: center;
+    gap: 12px;
+  }
+  .hero-copy,
+  .letter-copy,
+  .story-heading,
+  .story-note,
+  .countdown-heading,
+  .dress-top,
+  .dress-note,
+  .venue-copy,
+  .rsvp-intro,
+  .closing-copy {
+    text-align: center;
+  }
+  .hero-kicker {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    margin-bottom: 28px;
+  }
+  .hero-names {
+    font-size: clamp(40px, 11.5vw, 60px);
+    margin-left: 0;
+  }
+  .second-line {
+    justify-content: center;
+    padding-left: 0;
+    gap: 16px;
+  }
+  .hero-meta {
+    display: block;
+    padding: 0;
+    margin-top: 24px;
+  }
+  .hero-meta .round-link {
+    display: none;
+  }
+  .hero-visual,
+  .story-figure,
+  .dress-detail,
+  .venue-image,
+  .closing-image {
+    width: 100%;
+    max-width: 420px;
+    margin-inline: auto;
+  }
+  .hero-photo,
+  .dress-detail,
+  .closing-image {
+    height: auto;
+    aspect-ratio: 4 / 5;
+  }
+  .hero-foot {
+    justify-content: center;
+  }
+  .image-caption,
+  .story .image-caption {
+    justify-content: center;
+    text-align: center;
+    font-size: 9px;
+  }
+  .image-corner {
+    display: none;
+  }
+  .photo-expand,
+  .dress-detail figcaption {
+    left: 50%;
+    right: auto;
+    width: max-content;
+    max-width: calc(100% - 24px);
+    transform: translateX(-50%);
+    text-align: center;
+  }
+  .letter-lead,
+  .letter-text,
+  .chapter p,
+  .dress-intro,
+  .dress-note,
+  .venue-note,
+  .rsvp-intro > p {
+    max-width: 34ch;
+    margin-inline: auto;
+  }
+  .letter-lead {
+    font-size: clamp(29px, 8vw, 36px);
+    text-wrap: balance;
+  }
+  .letter-text {
+    font-size: 18px;
+    line-height: 1.65;
+  }
+  .signature {
+    margin-inline: auto;
+  }
+  .story-heading {
+    display: block;
+    margin-bottom: 32px;
+  }
+  .story-heading h2 {
+    font-size: clamp(38px, 10.8vw, 54px);
+  }
+  .story-heading > p {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0 6px;
+    padding: 0;
+    margin-top: 20px;
+    font-size: 13px;
+  }
+  .story-heading > p > span {
+    display: inline;
+  }
+  .story-note {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .story-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: min(100%, 300px);
+    margin-inline: auto;
+    gap: 12px;
+  }
+  .story-tabs button {
+    justify-content: center;
+    padding-inline: 0;
+  }
+  .chapter {
+    min-height: 0;
+  }
+  .countdown-digits {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .countdown-digits > div:first-child {
+    align-items: center;
+    padding-left: 5px;
+  }
+  .countdown-caption {
+    max-width: 30ch;
+    margin-inline: auto;
+    text-align: center;
+  }
+  .date-column {
+    gap: 24px 16px;
+    text-align: center;
+  }
+  .date-column h2 {
+    font-size: clamp(34px, 10vw, 46px);
+  }
+  .date-poster {
+    justify-self: center;
+  }
+  .poster-number {
+    font-size: clamp(100px, 30vw, 138px);
+    margin-left: 0;
+    padding-right: 0.08em;
+    letter-spacing: -0.08em;
+  }
+  .date-poster > p {
+    justify-content: center;
+    gap: 12px;
+  }
+  .calendar-link {
+    justify-self: center;
+    gap: 20px;
+  }
+  .event-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 16px;
+    text-align: center;
+  }
+  .event-summary p {
+    font-size: clamp(20px, 5.6vw, 25px);
+  }
+  .event-summary p > span {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .event-venue-preview {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+    margin-inline: auto;
+  }
+  .event-venue-preview img {
+    width: min(100%, 260px);
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+  .event-venue-preview > span {
+    justify-content: center;
+    gap: 12px;
+  }
+  .schedule-heading {
+    text-align: center;
+  }
+  .schedule > li {
+    grid-template-columns: 52px minmax(0, 1fr);
+    gap: 16px;
+  }
+  .dress-detail {
+    min-height: 0;
+    max-height: none;
+  }
+  .dress-detail img {
+    transform: scale(1.015);
+  }
+  .dress-swatches {
+    width: 100%;
+    max-width: 420px;
+    margin-inline: auto;
+  }
+  .swatch {
+    height: clamp(154px, 44vw, 184px);
+  }
+  .swatch:nth-child(2),
+  .swatch:nth-child(3) {
+    margin-top: 0;
+  }
+  .swatch > .micro:first-child {
+    display: none;
+  }
+  .dress-note {
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  .venue-grid {
+    gap: 28px;
+  }
+  .venue-image {
+    height: auto;
+    aspect-ratio: 3 / 2;
+  }
+  .venue-image > span {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    text-align: center;
+  }
+  .venue-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .venue-copy > .micro {
+    max-width: 32ch;
+    line-height: 1.6;
+  }
+  .venue-copy h2 {
+    font-size: clamp(34px, 10vw, 46px);
+    margin: 20px 0 0;
+  }
+  .venue-address {
+    justify-content: center;
+    max-width: 100%;
+    margin: 16px auto 0;
+    font-size: 17px;
+    line-height: 1.5;
+  }
+  .venue-note {
+    margin-top: 20px;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  .venue-copy .text-link {
+    margin: 16px auto 0;
+    gap: 16px;
+    font-size: 17px;
+  }
+  .rsvp-grid {
+    gap: 32px;
+  }
+  .rsvp-intro h2 {
+    font-size: clamp(58px, 14.5vw, 68px);
+  }
+  .rsvp-panel {
+    width: 100%;
+    max-width: 420px;
+    margin-inline: auto;
+  }
+  .rsvp-panel legend {
+    width: 100%;
+    text-align: center;
+  }
+  .rsvp-save {
+    display: flex;
+    margin-inline: auto;
+  }
+  .rsvp-disclaimer {
+    margin-inline: auto;
+    text-align: center;
+  }
+  .rsvp-confirmation {
+    text-align: center;
+  }
+  .rsvp-confirmation > p,
+  .rsvp-confirmation blockquote,
+  .confirmation-icon {
+    margin-inline: auto;
+  }
+  .rsvp-confirmation blockquote {
+    border-left: 0;
+    padding-left: 0;
+  }
+  .closing {
+    padding-top: 32px;
+    padding-bottom: max(24px, var(--safe-bottom));
+  }
+  .closing-top {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+  }
+  .closing-spread {
+    gap: 32px;
+  }
+  .closing-bottom {
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 0 0;
+    gap: 12px;
+  }
+  .closing-bottom > p {
+    flex: none;
+  }
+  .closing-bottom .replay-link {
+    order: 2;
+    width: auto;
+    text-align: center;
+  }
+  .closing-bottom > a {
+    order: 3;
+  }
+}
+
+@media (max-width: 700px) and (orientation: portrait) {
+  .magazine-cover {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto auto;
+    row-gap: 10px;
+  }
+  .cover-image {
+    position: relative;
+    inset: auto;
+    left: auto;
+    right: auto;
+    grid-row: 1;
+    justify-self: center;
+    height: 100%;
+    max-width: 100%;
+    transform: none;
+  }
+  .cover-heading {
+    position: static;
+    grid-row: 2;
+    text-align: center;
+  }
+  .cover-heading h1 {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 6px;
+    font-size: clamp(24px, 7.2vw, 32px);
+    white-space: nowrap;
+  }
+  .cover-heading h1 > br {
+    display: none;
+  }
+  .cover-heading h1 > .cover-first,
+  .cover-heading h1 > .cover-last {
+    margin-top: 0;
+    padding: 2px 5px 5px;
+  }
+  .cover-heading > .micro {
+    padding-inline: 6px;
+    margin-inline: auto;
+    margin-bottom: 8px;
+  }
+  .cover-edition {
+    display: none;
+  }
+  .cover-caption {
+    position: static;
+    grid-row: 3;
+    text-align: center;
+    font-size: 9px;
+    line-height: 1.4;
+    color: var(--ink);
+  }
+  .cover-mobile-date {
+    display: block;
+    font-size: 11px;
+    margin-top: 4px;
+    letter-spacing: 0.04em;
+    text-transform: none;
+  }
+  .cover-date {
+    display: none;
+  }
+  .cover-date span {
+    margin-top: 8px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 700px) and (orientation: portrait) {
+  .invitation-overlay[data-compact] .cover-heading > .micro {
+    display: none;
+  }
+}

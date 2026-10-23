@@ -1,0 +1,47 @@
+@font-face {
+  font-family: Tenor;
+  src: url('/fonts/TenorSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: Arsenal;
+  src: url('/fonts/Arsenal-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: Arsenal;
+  src: url('/fonts/Arsenal-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+:root {
+  --paper: #fafaf8;
+  --ink: #181818;
+  --surface: #ededeb;
+  --muted: #666663;
+  --silver: #b7b7b7;
+  --line: #d2d2cf;
+  --accent: #7d4e54;
+  --accent-wash: #f6f0ee;
+  --accent-soft: #f1e5e4;
+  --accent-line: #d5b9bb;
+  --display: 'Tenor', sans-serif;
+  --body: 'Arsenal', sans-serif;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --gutter: max(clamp(20px, 4.2vw, 76px), var(--safe-left), var(--safe-right));
+  --section-space: clamp(76px, 9vw, 144px);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  color: var(--ink);
+  background: var(--paper);
+  font-family: var(--body);
+  font-synthesis: none;
+  scroll-padding-top: 24px;
+}

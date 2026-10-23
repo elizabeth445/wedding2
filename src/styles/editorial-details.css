@@ -1,0 +1,267 @@
+/* Soft silver on paper; the names and portraits remain the focus. */
+.hero {
+  isolation: isolate;
+}
+.hero-chrome {
+  position: absolute;
+  z-index: -1;
+  inset: 24px 22% 180px 0;
+  pointer-events: none;
+  opacity: 0.2;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 44% 48%, var(--silver), transparent 58%);
+  mask-image: radial-gradient(ellipse at 44% 48%, #000 12%, transparent 69%);
+}
+.hero-foot {
+  position: relative;
+  align-items: center;
+}
+.hero-foot-actions,
+.hero-foot-actions > span {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hero-foot-actions > span {
+  font-size: 10px;
+}
+.chrome-toggle {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  transition:
+    background 160ms,
+    color 160ms;
+}
+.chrome-toggle:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+.editorial-flourish {
+  stroke: currentColor;
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.flourish-fill {
+  fill: currentColor;
+  fill-opacity: 0.08;
+  stroke: none;
+}
+.letter-flourish {
+  width: clamp(88px, 9vw, 124px);
+  height: auto;
+  align-self: end;
+  justify-self: end;
+  color: var(--muted);
+}
+.letter .signature::before {
+  content: '';
+  display: block;
+  width: 64px;
+  height: 1px;
+  background: var(--silver);
+  margin-bottom: 24px;
+}
+.schedule > li {
+  grid-template-columns: 70px 28px minmax(0, 1fr);
+  gap: 16px;
+}
+.schedule-icon {
+  display: flex;
+  justify-content: center;
+  padding-top: 2px;
+  color: var(--ink);
+}
+@media (max-width: 1050px) {
+  .hero-foot-actions > span {
+    display: none;
+  }
+  .schedule > li {
+    grid-template-columns: 60px 24px minmax(0, 1fr);
+    gap: 12px;
+  }
+}
+@media (max-width: 700px) {
+  .hero-chrome {
+    inset: 0 0 auto;
+    height: 390px;
+    opacity: 0.16;
+    mask-image: radial-gradient(ellipse at 50% 45%, #000 8%, transparent 68%);
+  }
+  .letter-flourish {
+    display: block;
+    width: 106px;
+    grid-row: 1;
+    justify-self: center;
+    margin-bottom: -12px;
+  }
+  .letter .signature::before {
+    margin-inline: auto;
+  }
+  .schedule > li {
+    grid-template-columns: 52px 22px minmax(0, 1fr);
+    gap: 12px;
+  }
+  .schedule-icon svg {
+    width: 21px;
+    height: 21px;
+  }
+}
+
+/* A quiet stationery tint for the reply, with fully framed controls. */
+.calendar-link {
+  border: 1px solid var(--ink);
+  padding: 12px 18px;
+  min-height: 50px;
+  justify-content: center;
+  text-align: center;
+  background: var(--paper);
+}
+.rsvp {
+  background: var(--accent-wash);
+}
+.rsvp > .section-label {
+  border-color: var(--accent-line);
+}
+.rsvp-title-art {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  max-width: 540px;
+}
+.rsvp-title-art h2 {
+  text-align: center;
+}
+.rsvp-margin-art {
+  width: clamp(26px, 3.8vw, 44px);
+  height: auto;
+  color: var(--accent);
+  justify-self: center;
+  transform: rotate(-65deg);
+}
+.rsvp-margin-art:last-child {
+  transform: rotate(115deg);
+}
+.rsvp-panel {
+  background: var(--paper);
+  border: 1px solid var(--accent-line);
+  padding: clamp(16px, 3vw, 32px);
+}
+.attendance-options label {
+  background: var(--paper);
+  border-color: var(--accent-line);
+}
+.attendance-options label.selected {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.attendance-options input:checked {
+  box-shadow: inset 0 0 0 3px var(--accent-soft);
+}
+.form-field input,
+.form-field textarea {
+  border: 1px solid var(--accent-line);
+  background: var(--paper);
+  padding: 12px 14px;
+}
+.form-field textarea {
+  min-height: 132px;
+}
+.form-field input:focus-visible,
+.form-field textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  box-shadow: none;
+}
+.rsvp-save {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.rsvp-save:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+.confirmation-icon {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent-line);
+}
+.rsvp-confirmation h3,
+.rsvp-confirmation .text-link {
+  color: var(--accent);
+}
+@media (max-width: 700px) {
+  .dress-detail {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    aspect-ratio: auto;
+  }
+  .dress-detail img {
+    height: auto;
+    aspect-ratio: 4 / 5;
+    transform: none;
+  }
+  .dress-detail figcaption {
+    position: static;
+    width: auto;
+    margin: 12px auto 0;
+    transform: none;
+    color: var(--ink);
+    background: none;
+    mix-blend-mode: normal;
+    line-height: 1.5;
+  }
+  .countdown {
+    border-bottom: 0;
+    padding-bottom: 32px;
+  }
+  .day {
+    padding-top: 32px;
+  }
+  .day > .section-label {
+    border-top: 0;
+    padding-top: 0;
+  }
+  .rsvp-title-art {
+    margin-inline: auto;
+    max-width: 360px;
+    gap: 8px;
+  }
+  .rsvp-panel {
+    padding: clamp(16px, 5vw, 24px);
+  }
+  .form-field > label {
+    font-size: 16px;
+    line-height: 1.4;
+    align-items: baseline;
+  }
+  .form-field > label > span {
+    flex-shrink: 0;
+    font-size: 10px;
+  }
+  .form-field input,
+  .form-field textarea {
+    font-size: 17px;
+  }
+  .rsvp-confirmation h3 {
+    font-size: clamp(30px, 9vw, 42px);
+  }
+  .venue-address svg,
+  .closing-copy .text-link svg {
+    flex-shrink: 0;
+  }
+  .closing-copy .text-link {
+    max-width: 100%;
+    gap: 12px;
+    line-height: 1.4;
+  }
+}
