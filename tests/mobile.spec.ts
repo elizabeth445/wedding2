@@ -18,6 +18,17 @@ const viewports = [
   [844, 390],
 ];
 const output = path.resolve('output');
+
+test('the flying photo stays fully visible on a short phone screen', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 480 });
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Відкрити запрошення' }).tap();
+  await expect(page.locator('.cover-image')).toHaveCSS('opacity', '1');
+  await expect(page.locator('.invitation-card')).toBeInViewport({ ratio: 1 });
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+});
+
 async function expectCoverToFit(page: Page) {
   const button = page.getByRole('button', { name: 'Відкрити запрошення' });
   await expect(button).toBeInViewport({ ratio: 1 });
@@ -35,22 +46,16 @@ async function expectCoverToFit(page: Page) {
   const viewport = page.viewportSize()!;
   if (viewport.width <= 700 && viewport.height > viewport.width) {
     const photo = await page.locator('.cover-image').boundingBox();
-    const caption = await page.locator('.cover-caption').boundingBox();
     const title = await page.locator('.cover-heading').boundingBox();
+    const card = await page.locator('.invitation-card').boundingBox();
+    const scene = await page.locator('.envelope-scene').boundingBox();
     expect(Math.abs(photo!.x + photo!.width / 2 - viewport.width / 2)).toBeLessThanOrEqual(1);
-    const envelope = await page.locator('.envelope-front').boundingBox();
-    expect(title!.y, 'Typography stays below the faces').toBeGreaterThanOrEqual(
-      photo!.y + photo!.height * 0.4,
+    expect(title!.y, 'The letter heading stays on the paper').toBeGreaterThan(card!.y);
+    expect(title!.y + title!.height, 'The lace does not hide the letter heading').toBeLessThan(
+      scene!.y + scene!.height * 0.63,
     );
-    expect(title!.y + title!.height, 'The envelope does not hide the title').toBeLessThanOrEqual(
-      envelope!.y + 8,
-    );
-    expect(caption!.y, 'Names and date are printed on the envelope').toBeGreaterThan(envelope!.y);
-    expect(caption!.y + caption!.height).toBeLessThan(envelope!.y + envelope!.height);
-    const seal = await page.getByRole('button', { name: 'Розкрити конверт' }).boundingBox();
-    expect(seal!.y + seal!.height, 'The seal stays clear of the names and date').toBeLessThan(
-      caption!.y,
-    );
+    await expect(page.locator('.cover-image')).toHaveCSS('opacity', '0');
+    await expect(page.locator('.cover-caption')).toBeInViewport({ ratio: 1 });
   }
 }
 

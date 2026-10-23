@@ -13,6 +13,20 @@ async function replay(page: Page) {
   await page.locator('header').getByRole('button', { name: 'Обкладинка', exact: true }).click();
 }
 
+test('фотография появляется при открытии и вылетает выше конверта', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.goto('/');
+  const card = page.locator('.invitation-card');
+  const initial = await card.boundingBox();
+  await expect(page.locator('.cover-image')).toHaveCSS('opacity', '0');
+  await page.getByRole('button', { name: 'Відкрити запрошення' }).click();
+  await expect(page.locator('.cover-image')).toHaveCSS('opacity', '1');
+  await expect.poll(async () => (await card.boundingBox())!.y).toBeLessThan(initial!.y - 20);
+  await expect(card).toBeInViewport({ ratio: 1 });
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  await expect(page.locator('#hero-title')).toBeFocused();
+});
+
 test('печать конверта открывает приглашение и допускает выход во время анимации', async ({
   page,
 }) => {

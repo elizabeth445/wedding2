@@ -5,7 +5,6 @@ import { ArrowUpRight } from 'lucide-react';
 import { weddingConfig as c } from '../config/weddingConfig';
 import type { Guest } from '../data/guests';
 import { useMotionPreference } from '../hooks/useMotionPreference';
-import { Chandelier, PearlStrand } from './Ornament';
 import '../styles/invitation.css';
 export function Invitation({ guest, onClose }: { guest: Guest; onClose: () => void }) {
   const root = useRef<HTMLDialogElement>(null);
@@ -58,20 +57,54 @@ export function Invitation({ guest, onClose }: { guest: Guest; onClose: () => vo
         onClose();
         return;
       }
+      const landscape = window.innerWidth > window.innerHeight && window.innerHeight <= 560;
+      const scale = landscape ? 1.06 : 1.13;
+      const card = root.current
+        ?.querySelector<HTMLElement>('.invitation-card')
+        ?.getBoundingClientRect();
+      const stage = root.current
+        ?.querySelector<HTMLElement>('.invitation-stage')
+        ?.getBoundingClientRect();
+      let lift = landscape ? -24 : -42;
+      if (card && stage) {
+        const angle = (7 * Math.PI) / 180;
+        const rotatedHeight =
+          scale * (card.height * Math.cos(angle) + card.width * Math.sin(angle));
+        const safeLift =
+          ((stage.top + 16 - card.top + (rotatedHeight - card.height) / 2) / card.height) * 100;
+        lift = Math.max(lift, safeLift);
+      }
       timeline.current = gsap
         .timeline({ defaults: { ease: 'power3.inOut' }, onComplete: onClose })
-        .to('.envelope-seal', { scale: 0.8, opacity: 0, duration: 0.22 })
-        .to('.envelope-flap', { rotationX: 180, duration: 0.6 }, 0.12)
-        .set('.envelope-flap', { zIndex: 0 }, 0.42)
-        .to('.invitation-card', { yPercent: -12, rotation: -2, duration: 0.75 }, 0.44)
-        .to('.envelope-body', { yPercent: 50, opacity: 0, duration: 0.7 }, 0.65)
+        .to('.envelope-seal', { scale: 0.8, opacity: 0, duration: 0.18 })
+        .to('.paper-date', { opacity: 0, duration: 0.18 }, 0.18)
         .to(
-          '.invitation-bottom, .invitation-top, .cover-decoration',
-          { opacity: 0, duration: 0.3 },
-          0.9,
+          '.invitation-card',
+          {
+            yPercent: lift,
+            scale,
+            rotation: -7,
+            duration: 0.9,
+            ease: 'power3.out',
+          },
+          0.16,
         )
-        .to('.invitation-card', { yPercent: -16, scale: 1.035, rotation: 0, duration: 0.5 }, 1.2)
-        .to(root.current, { opacity: 0, duration: 0.4 }, 1.65);
+        .to('.cover-image', { opacity: 1, duration: 0.38 }, 0.32)
+        .to('.cover-heading', { top: '58%', color: '#fff', duration: 0.38 }, 0.32)
+        .set('.invitation-card', { zIndex: 5 }, 0.75)
+        .to(
+          '.envelope-art, .envelope-inscription',
+          { yPercent: 18, opacity: 0, duration: 0.65 },
+          0.8,
+        )
+        .to(
+          '.invitation-bottom, .invitation-top, .invitation-recipient',
+          { opacity: 0, duration: 0.3 },
+          1,
+        )
+        .to('.invitation-card', { yPercent: lift + 4, rotation: 0, duration: 0.5 }, 1.12)
+        .to('.invitation-card', { yPercent: lift - 6, opacity: 0, duration: 0.5 }, 2.05)
+        .to(root.current, { opacity: 0, duration: 0.35 }, 2.35);
     })();
   return (
     <dialog
@@ -93,13 +126,18 @@ export function Invitation({ guest, onClose }: { guest: Guest; onClose: () => vo
         </button>
       </div>
       <div className="invitation-stage">
-        <Chandelier className="cover-decoration cover-chandelier" />
-        <PearlStrand className="cover-decoration cover-pearls" />
         <div className="envelope-scene">
-          <div className="envelope-body envelope-back" aria-hidden="true" />
-          <div className="envelope-body envelope-flap" aria-hidden="true" />
+          <img
+            className="envelope-art envelope-back"
+            src="/images/lace-envelope.webp"
+            alt=""
+            aria-hidden="true"
+            width="1254"
+            height="1254"
+            fetchPriority="high"
+          />
           <div className="invitation-card">
-            <div className="cover-image">
+            <div className="cover-image" aria-hidden={!opening}>
               <img
                 src={c.photos.hero}
                 alt={c.photos.heroAlt}
@@ -113,34 +151,31 @@ export function Invitation({ guest, onClose }: { guest: Guest; onClose: () => vo
                 <span className="cover-first">Це ми.</span>
                 <span className="cover-last">Назавжди.</span>
               </h1>
+              <p className="paper-date">{c.dateLabel}</p>
             </div>
           </div>
-          <div className="envelope-body envelope-front" aria-hidden="true" />
-          <svg
-            className="envelope-body envelope-seams"
-            viewBox="0 0 480 200"
-            preserveAspectRatio="none"
+          <img
+            className="envelope-art envelope-front"
+            src="/images/lace-envelope.webp"
+            alt=""
             aria-hidden="true"
-          >
-            <path d="M2 2 240 98 478 2M2 198 175 105M478 198 305 105" />
-          </svg>
-          <div className="envelope-body envelope-inscription">
+            width="1254"
+            height="1254"
+          />
+          <div className="envelope-inscription">
             <button
               className="envelope-seal"
               type="button"
               onClick={open}
               disabled={opening}
               aria-label="Розкрити конверт"
-            >
-              {c.couple.initials}
-            </button>
-            <p className="cover-caption">
-              {c.couple.together}
-              <span>{c.dateLabel}</span>
-            </p>
+            />
           </div>
         </div>
-        <p className="invitation-recipient">{guest.cover}</p>
+        <div className="invitation-recipient">
+          <p className="cover-caption">{c.couple.together}</p>
+          <p>{guest.cover}</p>
+        </div>
       </div>
       <div className="invitation-bottom">
         <button className="button" onClick={open} disabled={opening}>
