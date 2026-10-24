@@ -35,6 +35,25 @@ export default function App() {
         .timeline({ defaults: { duration: 1, ease: 'power3.out' } })
         .from('.name-line, .second-line', { clipPath: 'inset(0 0 100% 0)', y: 14, stagger: 0.12 })
         .from('.hero-photo img', { scale: 1.06, duration: 1.3 }, 0);
+      const media = gsap.matchMedia();
+      media.add('(min-width: 701px)', () => {
+        gsap.utils.toArray<HTMLElement>('.pearl-drift').forEach((strand) => {
+          gsap.fromTo(
+            strand,
+            { y: -16 },
+            {
+              y: 16,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: strand.closest('section, footer'),
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true,
+              },
+            },
+          );
+        });
+      });
       gsap.from('.story-photo img', {
         clipPath: 'inset(0 12% 0 12%)',
         duration: 1.2,
@@ -62,6 +81,7 @@ export default function App() {
           },
         },
       );
+      return () => media.revert();
     },
     { scope: root, dependencies: [invitation, reduced], revertOnUpdate: true },
   );

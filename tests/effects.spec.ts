@@ -77,3 +77,30 @@ test('без WebGL приглашение, детали и программа о
   await expect(page.getByRole('heading', { name: 'Солодкий момент' })).toBeVisible();
   expect(errors).toEqual([]);
 });
+
+test('жемчужная программа раскрывает события с клавиатуры, палитра меняет совет', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Пропустити', exact: true }).click();
+  const time = page.getByRole('button', { name: '21:00 — Солодкий момент', exact: true });
+  await time.focus();
+  await time.press('Enter');
+  await expect(time).toHaveAttribute('aria-expanded', 'true');
+  await expect(page.locator('#moment-4')).toBeVisible();
+  await expect(page.locator('#moment-0')).toBeHidden();
+  await time.press('Space');
+  await expect(time).toHaveAttribute('aria-expanded', 'false');
+  await expect(page.locator('#moment-4')).toBeHidden();
+  const fabrics = page.getByRole('group', { name: 'Відтінки та фактури дрескоду' });
+  const silver = fabrics.getByRole('button', { name: 'Срібло З акцентом', exact: true });
+  await silver.click();
+  await expect(silver).toHaveAttribute('aria-pressed', 'true');
+  await expect(
+    fabrics.getByRole('button', { name: 'Чорний Матовий', exact: true }),
+  ).toHaveAttribute('aria-pressed', 'false');
+  await expect(page.locator('.fabric-note')).toHaveText(
+    'Делікатний блиск в аксесуарах, прикрасах або деталях вашого образу.',
+  );
+});

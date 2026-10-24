@@ -65,17 +65,16 @@ export function RSVP({ guest }: { guest: Guest }) {
   }
   return (
     <section className="rsvp section" id="rsvp" aria-labelledby="rsvp-title">
+      <PearlStrand variant="garland" className="rsvp-garland" />
       <SectionLabel number="06">Дайте нам знати</SectionLabel>
       <div className="rsvp-grid">
         <div className="rsvp-intro">
           <span className="micro">Ваша відповідь — частина нашої історії</span>
           <div className="rsvp-title-art">
-            <PearlStrand className="rsvp-margin-art" />
             <h2 id="rsvp-title">
               Ви з<br />
               <em>нами?</em>
             </h2>
-            <PearlStrand className="rsvp-margin-art" />
           </div>
           <p>
             Дуже хочемо розділити цей день із вами. Залиште відповідь до <span>{c.deadline}.</span>

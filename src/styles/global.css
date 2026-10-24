@@ -355,11 +355,6 @@ em {
   grid-template-columns: 1fr 2fr 0.55fr;
   gap: 40px;
 }
-.letter-aside {
-  padding-top: 12px;
-  color: var(--muted);
-  line-height: 1.8;
-}
 .letter-copy h2 {
   font-size: clamp(32px, 3vw, 46px);
   margin-bottom: 28px;
@@ -569,9 +564,6 @@ em {
   }
   .letter-grid {
     grid-template-columns: 1fr;
-  }
-  .letter-aside {
-    display: none;
   }
   .letter-copy h2 {
     font-size: 32px;

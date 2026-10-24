@@ -1,8 +1,12 @@
 import { ArrowUpRight, ArrowUp } from 'lucide-react';
 import { weddingConfig as c } from '../config/weddingConfig';
+import { PearlStrand } from '../components/Ornament';
 export function Closing({ onReplay }: { onReplay: () => void }) {
   return (
     <footer className="closing" aria-labelledby="closing-title">
+      <div className="pearl-layer" aria-hidden="true">
+        <PearlStrand className="closing-pearl pearl-drift" />
+      </div>
       <div className="closing-top">
         <span className="micro">Не фінал. Тільки початок.</span>
         <span className="micro">{c.shortDate}</span>

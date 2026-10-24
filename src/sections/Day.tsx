@@ -9,9 +9,10 @@ import {
   Music2,
   CakeSlice,
   Hand,
+  ChevronDown,
 } from 'lucide-react';
 import { weddingConfig as c } from '../config/weddingConfig';
-import { SectionLabel } from '../components/Ornament';
+import { PearlStrand, SectionLabel } from '../components/Ornament';
 import { downloadCalendar, validExternalURL } from '../lib/calendar';
 const target = new Date(c.date).getTime();
 const scheduleIcons = [HandHeart, Heart, Utensils, Music2, CakeSlice, Hand];
@@ -37,6 +38,7 @@ export function Countdown() {
   const started = time.every((value) => value === 0);
   return (
     <section className="countdown section" aria-labelledby="countdown-title">
+      <PearlStrand variant="garland" className="countdown-garland" />
       <div className="countdown-heading">
         <span className="micro">Очікування теж частина історії</span>
         <h2 id="countdown-title">{started ? 'Наш день настав.' : 'До нашого «так»'}</h2>
@@ -63,6 +65,7 @@ export function Countdown() {
   );
 }
 export function Day() {
+  const [selectedMoment, setSelectedMoment] = useState<number | null>(0);
   const date = new Date(c.date);
   const dateParts = new Intl.DateTimeFormat('uk-UA', {
     timeZone: c.timezone,
@@ -79,10 +82,8 @@ export function Day() {
       <div className="day-grid">
         <div className="date-column">
           <h2 id="day-title">
-            Місце.
-            <br />
-            Час.
-            <br />
+            Місце. <br />
+            Час. <br />
             <em>Ми.</em>
           </h2>
           <div className="date-poster">
@@ -120,27 +121,46 @@ export function Day() {
               </span>
             </a>
           </div>
-          <div className="schedule-heading">
-            <h3>Ритм нашого дня</h3>
-            <span className="micro">Від обіймів до останнього танцю</span>
+          <div className="program-panel">
+            <div className="schedule-heading">
+              <h3>Ритм нашого дня</h3>
+              <span className="micro">Від обіймів до останнього танцю</span>
+            </div>
+            <div className="program-body">
+              <PearlStrand variant="timeline" className="program-pearls" />
+              <ol className="schedule">
+                {c.schedule.map((item, index) => {
+                  const Icon = scheduleIcons[index] ?? Heart;
+                  return (
+                    <li key={item.time} data-selected={selectedMoment === index || undefined}>
+                      <button
+                        className="schedule-time"
+                        type="button"
+                        aria-expanded={selectedMoment === index}
+                        aria-controls={`moment-${index}`}
+                        aria-label={`${item.time} — ${item.title}`}
+                        onClick={() => setSelectedMoment(selectedMoment === index ? null : index)}
+                      >
+                        {item.time}
+                        <ChevronDown size={14} aria-hidden="true" />
+                      </button>
+                      <div className="schedule-copy">
+                        <h4>
+                          <span className="schedule-icon" aria-hidden="true">
+                            <Icon size={17} strokeWidth={1.35} />
+                          </span>
+                          {item.title}
+                        </h4>
+                        <p id={`moment-${index}`} hidden={selectedMoment !== index}>
+                          {item.text}
+                        </p>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ol>
+            </div>
           </div>
-          <ol className="schedule">
-            {c.schedule.map((item, index) => {
-              const Icon = scheduleIcons[index] ?? Heart;
-              return (
-                <li key={item.time}>
-                  <span className="schedule-time">{item.time}</span>
-                  <span className="schedule-icon" aria-hidden="true">
-                    <Icon size={23} strokeWidth={1.35} />
-                  </span>
-                  <div className="schedule-copy">
-                    <h4>{item.title}</h4>
-                    <p>{item.text}</p>
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
         </div>
       </div>
     </section>
@@ -162,6 +182,7 @@ export function Venue() {
             height="852"
           />
           <span className="micro">Найкраще місце — поруч із вами.</span>
+          <PearlStrand variant="garland" className="venue-garland" />
         </div>
         <div className="venue-copy">
           <span className="micro">Заміський комплекс · {c.venue.region}</span>

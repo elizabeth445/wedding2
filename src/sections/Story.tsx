@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, Maximize2, X } from 'lucide-react';
 import { weddingConfig as c } from '../config/weddingConfig';
-import { SectionLabel } from '../components/Ornament';
+import { PearlStrand, SectionLabel } from '../components/Ornament';
 function PhotoViewer({ onClose }: { onClose: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null);
   useEffect(() => {
@@ -46,6 +46,9 @@ export function Story() {
   const chapter = c.story[selected];
   return (
     <section className="story section" id="story" aria-labelledby="story-title">
+      <div className="pearl-layer" aria-hidden="true">
+        <PearlStrand className="story-pearl pearl-drift" />
+      </div>
       <SectionLabel number="02">Історія без сценарію</SectionLabel>
       <div className="story-heading">
         <h2 id="story-title">

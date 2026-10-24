@@ -13,10 +13,12 @@ export function Hero({ active }: { active: boolean }) {
   return (
     <section className="hero" id="home" aria-labelledby="hero-title">
       <ChromeBackground active={active && !reduced} paused={paused} />
+      <div className="pearl-layer" aria-hidden="true">
+        <PearlStrand className="hero-pearl hero-pearl-left pearl-drift" />
+        <PearlStrand className="hero-pearl hero-pearl-right pearl-drift" />
+      </div>
       <div className="hero-copy">
-        <p className="micro hero-kicker">
-          Весільна історія № 01 <span>Київ · 2027</span>
-        </p>
+        <p className="hero-kicker">Наше весілля</p>
         <h1 id="hero-title" tabIndex={-1} className="hero-names">
           <span className="name-line">{c.couple.first}</span>
           <span className="second-line">
@@ -93,11 +95,6 @@ export function Letter({ guest }: { guest: Guest }) {
     <section className="letter section" id="letter" aria-labelledby="letter-title">
       <SectionLabel number="01">Особисте запрошення</SectionLabel>
       <div className="letter-grid">
-        <p className="letter-aside micro">
-          Не просто гості.
-          <br />
-          Наші люди.
-        </p>
         <div className="letter-copy">
           <h2 id="letter-title">{guest.greeting}</h2>
           <p className="letter-lead">{c.invitation.lead}</p>
@@ -107,7 +104,7 @@ export function Letter({ guest }: { guest: Guest }) {
             {c.couple.together}
           </p>
         </div>
-        <PearlStrand className="letter-flourish" />
+        <PearlStrand variant="garland" className="letter-flourish" />
       </div>
     </section>
   );

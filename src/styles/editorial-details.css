@@ -132,16 +132,6 @@
 .rsvp-title-art h2 {
   text-align: center;
 }
-.rsvp-margin-art {
-  width: clamp(26px, 3.8vw, 44px);
-  height: auto;
-  color: var(--accent);
-  justify-self: center;
-  transform: rotate(-12deg);
-}
-.rsvp-margin-art:last-child {
-  transform: rotate(12deg) scaleX(-1);
-}
 .rsvp-panel {
   background: var(--paper);
   border: 1px solid var(--accent-line);

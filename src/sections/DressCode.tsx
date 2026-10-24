@@ -1,6 +1,13 @@
+import { useState } from 'react';
 import { weddingConfig as c } from '../config/weddingConfig';
-import { SectionLabel } from '../components/Ornament';
+import { PearlStrand, SectionLabel } from '../components/Ornament';
+const fabricNotes = [
+  'Матовий шовк, оксамит або костюмна тканина — стримано й виразно.',
+  'Фактурні тканини та м’які складки — для глибини й красивого силуету.',
+  'Делікатний блиск в аксесуарах, прикрасах або деталях вашого образу.',
+];
 export function DressCode() {
+  const [selected, setSelected] = useState(0);
   const [lead, ...rest] = c.dressCode.title.split('. ');
   return (
     <section className="dress section" id="dress-code" aria-labelledby="dress-title">
@@ -11,7 +18,6 @@ export function DressCode() {
           <em>{rest.join('. ')}</em>
         </h2>
         <div className="dress-intro">
-          <span className="micro">Форма — вільна. Настрій — святковий.</span>
           <p>{c.dressCode.text}</p>
         </div>
       </div>
@@ -26,20 +32,32 @@ export function DressCode() {
           />
           <figcaption className="micro">Текстури. Лінії. Характер.</figcaption>
         </figure>
-        <div className="dress-swatches">
-          {c.dressCode.palette.map((tone, index) => (
-            <div
-              key={tone.name}
-              className="swatch"
-              style={{ backgroundColor: tone.color, color: index === 2 ? '#181818' : '#fafaf8' }}
-            >
-              <span className="micro">0{index + 1}</span>
-              <p>{tone.name}</p>
-              <span className="micro">{tone.texture}</span>
-            </div>
-          ))}
+        <div className="dress-palette">
+          <PearlStrand variant="garland" className="dress-garland" />
+          <div className="dress-swatches" role="group" aria-label="Відтінки та фактури дрескоду">
+            {c.dressCode.palette.map((tone, index) => (
+              <button
+                key={tone.name}
+                className="swatch"
+                type="button"
+                aria-pressed={selected === index}
+                onClick={() => setSelected(index)}
+              >
+                <span
+                  className={`swatch-fabric fabric-${index}`}
+                  style={{ backgroundColor: tone.color }}
+                  aria-hidden="true"
+                />
+                <span className="swatch-name">{tone.name}</span>
+                <span className="swatch-texture">{tone.texture}</span>
+              </button>
+            ))}
+          </div>
+          <p className="fabric-note" aria-live="polite" aria-atomic="true">
+            {fabricNotes[selected]}
+          </p>
+          <p className="dress-note">{c.dressCode.note}</p>
         </div>
-        <p className="dress-note">{c.dressCode.note}</p>
       </div>
     </section>
   );
